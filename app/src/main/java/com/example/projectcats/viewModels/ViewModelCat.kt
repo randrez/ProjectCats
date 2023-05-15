@@ -45,6 +45,4 @@ class ViewModelCat @Inject constructor(
             }
         }
     }
-
-
 }

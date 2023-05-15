@@ -61,4 +61,7 @@ object NetworkModule {
         return retrofit.create(RestDataSource::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
 }
