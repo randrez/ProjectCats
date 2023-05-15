@@ -1,4 +1,4 @@
-package com.example.projectcats.di
+package com.example.projectcats.data.resource
 
 import okhttp3.Interceptor
 import okhttp3.Response

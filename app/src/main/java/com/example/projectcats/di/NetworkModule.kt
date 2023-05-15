@@ -1,6 +1,8 @@
 package com.example.projectcats.di
 
 import com.example.projectcats.BuildConfig
+import com.example.projectcats.data.resource.ApiKeyInterceptor
+import com.example.projectcats.data.resource.RestDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +20,8 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providerApiKeyInterceptor():ApiKeyInterceptor{
-        return ApiKeyInterceptor("bd153789-d59e-46cd-9bc4-2936630fde39")
+    fun providerApiKeyInterceptor(): ApiKeyInterceptor {
+        return ApiKeyInterceptor(BuildConfig.API_KEY)
     }
 
     @Singleton
@@ -52,5 +54,11 @@ object NetworkModule {
             .addConverterFactory(gson)
             .client(client)
             .baseUrl(BuildConfig.BASE_URL).build()
+
+    @Singleton
+    @Provides
+    fun providerService(retrofit: Retrofit): RestDataSource {
+        return retrofit.create(RestDataSource::class.java)
+    }
 
 }

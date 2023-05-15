@@ -32,18 +32,21 @@ android {
             versionNameSuffix "-test"
             buildConfigField "String", "Env", '"TEST"'
             buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
         demo {
             initWith debug
             versionNameSuffix "-demo"
             buildConfigField "String", "Env", '"DEMO"'
             buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "Env", '"RELEASE"'
             buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
     }
 
@@ -152,6 +155,9 @@ dependencies {
 
     // Preview images gif
     implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.accompanist:accompanist-picasso:0.6.2'
 
 
 }
