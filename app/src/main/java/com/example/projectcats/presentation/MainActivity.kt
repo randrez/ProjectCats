@@ -13,11 +13,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.projectcats.presentation.theme.ProjectCatsTheme
 import com.example.projectcats.presentation.views.CatsScreen
 import com.example.projectcats.viewModels.ViewModelCat
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             ProjectCatsTheme {
                 val viewModel: ViewModelCat = hiltViewModel()
                 CatsScreen(state = viewModel.state.value, cats=viewModel.cats)

@@ -31,21 +31,21 @@ android {
             debuggable true
             versionNameSuffix "-test"
             buildConfigField "String", "Env", '"TEST"'
-            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/"'
             buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
         demo {
             initWith debug
             versionNameSuffix "-demo"
             buildConfigField "String", "Env", '"DEMO"'
-            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'BASE_URL', '"http:/api.thecatapi.com/v1/"'
             buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "Env", '"RELEASE"'
-            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/"'
             buildConfigField 'String', 'API_KEY', '"bd153789-d59e-46cd-9bc4-2936630fde39"'
         }
     }

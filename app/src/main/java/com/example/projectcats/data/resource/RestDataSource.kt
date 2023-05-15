@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface RestDataSource {
 
-    @GET
+    @GET("breeds/")
     suspend fun getCats(): List<CatDTO>
 }

@@ -59,6 +59,7 @@ fun CatsScreen(
 
             if (state.loading) {
                 CircularProgressIndicator(
+                    color = Color.Blue,
                     modifier = Modifier
                         .fillMaxSize()
                         .align(Alignment.Center)
@@ -88,7 +89,7 @@ fun CardCat(cat: Cat) {
                     text = cat.breedName,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.secondary
+                    color = Color.Black
                 )
             }
 
@@ -97,7 +98,7 @@ fun CardCat(cat: Cat) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(text = cat.origin, color = Color.Gray)
                 Spacer(modifier = Modifier.weight(1f))
-                Text(text = cat.intelligence.toString())
+                Text(text = cat.intelligence.toString(), color = Color.DarkGray)
             }
         }
     }
