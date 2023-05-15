@@ -13,6 +13,7 @@ import com.example.projectcats.viewModels.states.CatState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,24 +27,26 @@ class ViewModelCat @Inject constructor(
     val cats: MutableList<Cat> = mutableStateListOf()
 
     init {
-        val state = state.value
-        catsUseCase.invoke().onEach { result ->
-            when (result) {
-                is Resource.Loading -> {
-                    _state.value = state.copy(loading = true)
-                }
+        viewModelScope.launch {
+            val state = state.value
+            catsUseCase.invoke().onEach { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        _state.value = state.copy(loading = true)
+                    }
 
-                is Resource.Error -> {
-                    _state.value = state.copy(loading = false)
-                }
+                    is Resource.Error -> {
+                        _state.value = state.copy(loading = false)
+                    }
 
-                is Resource.Success -> {
-                    _state.value = state.copy(loading = false)
-                    result.data?.let { dataCats ->
-                        cats.addAll(dataCats)
+                    is Resource.Success -> {
+                        _state.value = state.copy(loading = false)
+                        result.data?.let { dataCats ->
+                            cats.addAll(dataCats)
+                        }
                     }
                 }
-            }
-        }.launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
+        }
     }
 }

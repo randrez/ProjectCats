@@ -17,7 +17,8 @@ class CatsUseCase @Inject constructor(private val catRepository: CatRepository) 
         if(catsDTO.isEmpty()){
             emit(Resource.Error("No return cats"))
         }else{
-            emit(Resource.Success(catsDTO.toListCat()))
+            val cats = catsDTO.toListCat()
+            emit(Resource.Success(cats))
         }
     }.catch {
         emit(Resource.Error("Oops ocurred exception"))

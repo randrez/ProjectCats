@@ -44,16 +44,16 @@ fun CatsScreen(
             title = {
                 Text(
                     text = stringResource(id = R.string.cats),
-                    color = MaterialTheme.colors.onPrimary
+                    color = Color.White
                 )
             },
             backgroundColor = MaterialTheme.colors.primary
         )
     }) { paddingValues ->
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .padding(paddingValues)
-                .background(MaterialTheme.colors.background)
                 .fillMaxSize()
         ) {
 
@@ -67,7 +67,7 @@ fun CatsScreen(
             } else {
                 LazyColumn {
                     items(cats) { cat ->
-                        Row{
+                        Row {
                             CardCat(cat)
                             Spacer(modifier = Modifier.size(5.dp))
                         }
@@ -80,7 +80,12 @@ fun CatsScreen(
 
 @Composable
 fun CardCat(cat: Cat) {
-    Card(modifier = Modifier.fillMaxWidth(), elevation = 2.dp, shape = RoundedCornerShape(10.dp)) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = 2.dp,
+        shape = RoundedCornerShape(10.dp),
+        backgroundColor = Color.White
+    ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -95,7 +100,7 @@ fun CardCat(cat: Cat) {
                 )
             }
 
-            ImageCat(imageUrl = "https://ejemplo.com/mi_imagen.jpg")
+        //    ImageCat(imageUrl = "https://ejemplo.com/mi_imagen.jpg")
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(text = cat.origin, color = Color.Gray)
