@@ -1,0 +1,157 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id("kotlin-parcelize")
+}
+
+kapt {
+    correctErrorTypes true
+    generateStubs = false
+}
+android {
+    namespace 'com.example.projectcats'
+    compileSdk 33
+    kapt { generateStubs = true }
+    defaultConfig {
+        applicationId "com.example.projectcats"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            versionNameSuffix "-test"
+            buildConfigField "String", "Env", '"TEST"'
+            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+        }
+        demo {
+            initWith debug
+            versionNameSuffix "-demo"
+            buildConfigField "String", "Env", '"DEMO"'
+            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "Env", '"RELEASE"'
+            buildConfigField 'String', 'BASE_URL', '"http://api.thecatapi.com/v1/breeds"'
+        }
+    }
+
+
+    flavorDimensions "version"
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
+    //Global
+    implementation 'com.google.firebase:firebase-firestore:24.4.3'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation 'junit:junit:4.13.2'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+
+    // Jetpack Compose
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.2.0"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.2.0"
+    implementation "androidx.compose.runtime:runtime-livedata:1.3.3"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation "androidx.compose.ui:ui:1.3.3"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.3.3"
+    implementation "androidx.compose.material:material:1.3.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation "androidx.compose.material:material-icons-core:1.3.1"
+    implementation "androidx.compose.material:material-icons-extended:1.3.1"
+    implementation "androidx.compose.ui:ui-util:1.3.3"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+    implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.0'
+    implementation 'io.coil-kt:coil-compose:1.3.1'
+    implementation "io.coil-kt:coil-gif:1.3.1"
+    implementation("androidx.compose.animation:animation-graphics:1.1.0-alpha01")
+
+    // Dagger-Hilt
+    implementation "com.google.dagger:hilt-android:2.42"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    kapt "com.google.dagger:dagger-android-processor:2.42"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.38.1'
+    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.42'
+
+    //okhttp
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.1'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Accompanist
+    //implementation "com.google.accompanist:accompanist-flowlayout:$compose_version"
+    implementation "com.google.accompanist:accompanist-navigation-animation:0.16.0"
+    implementation "androidx.navigation:navigation-compose:2.5.3"
+
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
+    // Coroutine Lifecycle Scopes
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
+    implementation "io.grpc:grpc-okhttp:1.50.2"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation 'androidx.core:core-splashscreen:1.0.0'
+
+    // Preview images gif
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+
+
+}
