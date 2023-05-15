@@ -67,8 +67,10 @@ fun CatsScreen(
             } else {
                 LazyColumn {
                     items(cats) { cat ->
-                        CardCat(cat)
-                        Spacer(modifier = Modifier.size(5.dp))
+                        Row{
+                            CardCat(cat)
+                            Spacer(modifier = Modifier.size(5.dp))
+                        }
                     }
                 }
             }
